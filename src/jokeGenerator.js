@@ -1,21 +1,26 @@
 import React from "react";
 
 export default class JokeGenerator extends React.Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     joke: null
-  //   };
-  // }
+  state = { joke: null, loading: false };
 
-  state = { joke: null };
+  loadJoke = async () => {
+    this.setState({
+      loading: true
+    });
+  };
 
   render() {
-    const { joke } = this.state;
+    const { joke, loading } = this.state;
     return (
-      <React.Fragment>
-        {!joke && <div>You haven't loaded jokes yet</div>}
-      </React.Fragment>
+      <div>
+        <React.Fragment>
+          {!joke && !loading && <div>You haven't loaded jokes yet</div>}
+          {loading && <div>Loading...</div>}
+        </React.Fragment>
+        <button onClick={this.loadJoke} type="button">
+          Load a random joke
+        </button>
+      </div>
     );
   }
 }
